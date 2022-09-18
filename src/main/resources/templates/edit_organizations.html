@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymelead.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Edit organization</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<h1>Edit an organization</h1>
+<body>
+
+<h3>Edit an organization</h3>
+<p>Enter the ID of an organization that you want to change</p>
+<form action="editOrganization" method="POST">
+		  Organization Id: <input type="text" name = "organizationId" required/><br/><br>
+          Enter new organization name: <input type="text" name="name"/> <br/><br>
+          Enter new organization description: <input type="text" name="description"/> <br/>
+          Enter new organization address: <input type="text" name="address"/> <br/>
+          Enter new organization email address: <input type="text" name="emailAddress"/> <br/>
+          Enter new organization phone number: <input type="text" name="phoneNumber"/> <br/>
+          <br>
+          <button type="submit">Save changes</button>
+</form>
+<br>
+<form action="home" method = "GET">
+	<button type = "submit">Cancel</button>
+</form>
+<br>
+<p th:text="${successMessage}"></p>
+
+</body>
+</html>

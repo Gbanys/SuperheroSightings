@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymelead.org">
+<head>
+<meta charset="ISO-8859-1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<title>Delete superheroes</title>
+</head>
+<h1>Delete superhero</h1>
+<body>
+
+<h3>Delete superhero by id</h3>
+<h5>Enter ID of a superhero that you want to delete</h5>
+<form action="deleteSuperhero" method="POST">
+          SuperheroId: <input type="text" name="superheroId" required/> <br/>
+          <br>
+          <button type="submit">Delete superhero</button>
+</form>
+<form action="home" method = "GET">
+	<button type = "submit">Cancel</button>
+</form>
+
+<br><br>
+<p th:text="${successMessage}"></p>
+
+</body>
+</html>

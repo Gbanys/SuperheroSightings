@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymelead.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Edit superhero</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<h1>Edit a superhero</h1>
+<body>
+
+<h3>Edit a superhero</h3>
+<form action="editSuperhero" method="POST">
+		  Superhero Id: <input type="text" name = "superheroId" required/><br/><br>
+          Enter new superhero name: <input type="text" name="name"/> <br/><br>
+          Enter new superhero description: <input type="text" name="description"/> <br/>
+          <br>
+          <button type="submit">Save changes</button>
+</form>
+<br>
+<form action="home" method = "GET">
+	<button type = "submit">Cancel</button>
+</form>
+<br>
+<p th:text="${successMessage}"></p>
+
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymelead.org">
+<head>
+<meta charset="ISO-8859-1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+<title>View superpowers</title>
+</head>
+<h1>View superpowers</h1>
+<body>
+
+<h3>Get all superpowers</h3>
+<form action="viewAllSuperpowers" method="GET">
+          <button type="submit">Get all superpowers</button>
+</form>
+
+<h3>Get superpower by Id</h3>
+<form action="viewSuperpowerById" method="GET">
+          SuperpowerId <input type="text" name="superpowerId" required/> <br/>
+          <br>
+          <button type="submit">Get superpower by Id</button>
+</form>
+<br><br>
+
+<p th:text="${superpowerById}"></p>
+<p th:each="superpower : ${superpowers}">
+       <span th:text="${superpower}"> </span>
+       <br>
+</p>
+
+</body>
+</html>

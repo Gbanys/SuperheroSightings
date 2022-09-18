@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymelead.org">
+<head>
+<meta charset="ISO-8859-1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<title>Create organization</title>
+</head>
+<h1>Create organization</h1>
+<body>
+
+<h3>Create a new organization</h3>
+<form action="createOrganization" method="POST">
+		  Organization name: <input type="text" name="organizationName" required/> <br/><br>
+          Organization address: <input type="text" name="organizationAddress" required/> <br/><br>
+          Organization description:<input type="text" name="organizationDescription" required/> <br/><br>
+          Organization email address:<input type="text" name="organizationEmailAddress" required/> <br/><br>
+          Organization phone number:<input type="text" name="organizationPhoneNumber" required/> <br/><br>
+          <br>
+          <button type="submit">Create organization</button>
+</form>
+<br>
+<form action="home" method = "GET">
+	<button type = "submit">Cancel</button>
+</form>
+
+<br><br>
+<p th:text="${successMessage}"></p>
+
+</body>
+</html>
