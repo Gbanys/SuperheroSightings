@@ -11,6 +11,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.superherosightings.main.dao.LocationDao;
+import com.superherosightings.main.dao.SuperheroDao;
+import com.superherosightings.main.dao.SuperheroDaoImpl;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -33,6 +39,13 @@ public class SuperheroLocation {
 	Location location;
 	
 	LocalDate sightingDate;
-	
+
+	@Override
+	public String toString() {
+		int superheroId = id.getSuperheroId();
+		int locationId = id.getLocationId();
+		return "Sighting [SuperheroID=" + superheroId + " LocationID=" + locationId +
+				" sightingDate=" + sightingDate + "]";
+	}
 	
 }

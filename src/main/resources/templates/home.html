@@ -53,7 +53,7 @@
         </ul>
       </li>
       <li class="dropdown">
-        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Supers
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Organizations
         <span class="caret"></span></a>
         <ul class="dropdown-menu">
           <li><a href="/create_organization">Create an organization</a></li>
@@ -80,8 +80,9 @@
 <h1 style="text-align: center">Welcome to the Super Sightings manager</h1>
 <p style="text-align: center">Please familiarize yourself with the website and check out the latest 10 recorded sightings of
 superheroes and supervillains</p>
+
 <br><br><br><br><br>
-<p th:each="sighting : ${sightings}">
+<p style = "text-align: center" th:each="sighting : ${sightings}">
        <span th:text="${sighting}"> </span>
        <br>
 </p>

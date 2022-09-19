@@ -67,7 +67,7 @@ public class SightingsController {
 		int superheroId = Integer.parseInt(request.getParameter("superheroId"));
 		Superhero superhero = superheroDao.getSuperheroById(superheroId);
 		List<SuperheroLocation> sightings = locationDao.getSightingsBySuperhero(superhero);
-		model.addAttribute("sightingsBySuperhero", sightings.toString());
+		model.addAttribute("sightingsBySuperhero", sightings);
 		return "view_sighting";
 	}
 	

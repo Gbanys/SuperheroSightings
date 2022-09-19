@@ -61,5 +61,12 @@ public class Organization {
 				&& organizationId == other.organizationId && Objects.equals(phoneNumber, other.phoneNumber);
 	}
 
+	@Override
+	public String toString() {
+		return "Organization [organizationId=" + organizationId + ", name=" + name + ", description=" + description
+				+ ", address=" + address + ", phoneNumber=" + phoneNumber + ", emailAddress=" + emailAddress
+				+ ", Organizations=" + Organizations + "]";
+	}
+
 
 }

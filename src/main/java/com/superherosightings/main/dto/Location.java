@@ -67,4 +67,10 @@ public class Location {
 				&& Objects.equals(longitude, other.longitude) && Objects.equals(name, other.name);
 	}
 
+	@Override
+	public String toString() {
+		return "Location [locationId=" + locationId + ", name=" + name + ", description=" + description + ", address="
+				+ address + ", latitude=" + latitude + ", longitude=" + longitude + "]";
+	}
+
 }

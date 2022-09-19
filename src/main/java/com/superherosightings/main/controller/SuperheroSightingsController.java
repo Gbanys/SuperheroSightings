@@ -44,7 +44,7 @@ public class SuperheroSightingsController {
 			locationNames.add(location.getName());
 		}
 		
-		model.addAttribute("sightings", sightingDates.toString());
+		model.addAttribute("sightings", sightings);
 		return "home";
 	}
 	
