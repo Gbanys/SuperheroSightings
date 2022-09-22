@@ -79,7 +79,7 @@ public class LocationDaoImpl implements LocationDao{
 	
 	@Override
 	public List<SuperheroLocation> getAllSightings(){
-		return superheroLocationRepository.findAllByOrderBySightingDateAsc();
+		return superheroLocationRepository.findAllByOrderBySightingDateDesc();
 	}
 	
 	@Override
@@ -90,6 +90,12 @@ public class LocationDaoImpl implements LocationDao{
 	@Override
 	public List<SuperheroLocation> getSightingsByLocation(Location location) {
 		return superheroLocationRepository.findByLocation(location);
+	}
+	
+	@Override
+	public SuperheroLocation getSightingById(int id) {
+		Optional<SuperheroLocation> sighting = superheroLocationRepository.findById(id);
+		return sighting.get();
 	}
 	
 	@Override

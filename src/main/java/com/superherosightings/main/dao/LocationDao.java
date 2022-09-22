@@ -36,6 +36,8 @@ public interface LocationDao {
 	
 	List<SuperheroLocation> getSightingsByLocation(Location location);
 	
+	SuperheroLocation getSightingById(int id);
+	
 	void deleteAll();
 	
 	List<Location> getLocationsBySuperhero(Superhero superhero);

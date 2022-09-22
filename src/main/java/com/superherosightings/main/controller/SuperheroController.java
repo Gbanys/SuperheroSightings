@@ -1,10 +1,12 @@
 package com.superherosightings.main.controller;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -53,10 +55,26 @@ public class SuperheroController {
 	
 	@GetMapping("/viewSuperheroById")
 	public String displaySuperheroById(Model model, HttpServletRequest request) {
-		int superheroId = Integer.parseInt(request.getParameter("superheroId"));
+		
+		int superheroId;
+		
+		try {
+		superheroId = Integer.parseInt(request.getParameter("superheroId"));
+		}
+		catch(NumberFormatException e) {
+			model.addAttribute("NumberFormatError", "Please enter a number into the ID field, no letters or symbols are allowed!");
+			return "view_superheroes";
+		}
+		
+		try {
 		Superhero superhero = superheroDao.getSuperheroById(superheroId);
 		model.addAttribute("superheroById", superhero.toString());
 		return "view_superheroes";
+		}
+		catch(NoSuchElementException e) {
+			model.addAttribute("NoSuchSuperheroError", "Sorry but a superhero with this ID does not exist");
+			return "view_superheroes";
+		}
 	}
 	
 	@GetMapping("/edit_superheroes")
@@ -66,10 +84,28 @@ public class SuperheroController {
 	
 	@PostMapping("/editSuperhero")
 	public String editSuperhero(Model model, HttpServletRequest request) {
-		int superheroId = Integer.parseInt(request.getParameter("superheroId"));
+		
+		int superheroId;
+		Superhero superhero;
+		
+		try {
+		superheroId = Integer.parseInt(request.getParameter("superheroId"));
+		}
+		catch(NumberFormatException e) {
+			model.addAttribute("NumberFormatError", "Please enter a number into the ID field, no letters or symbols are allowed!");
+			return "edit_superheroes";
+		}
 		String superheroName = request.getParameter("name");
 		String superheroDesc = request.getParameter("description");
-		Superhero superhero = superheroDao.getSuperheroById(superheroId);
+		
+		try {
+			superhero = superheroDao.getSuperheroById(superheroId);
+		}
+		catch(NoSuchElementException e) {
+			model.addAttribute("NoSuchSuperheroError", "Sorry but a superhero with this ID does not exist");
+			return "edit_superheroes";
+		}
+		
 		superhero.setName(superheroName);
 		superhero.setDescription(superheroDesc);
 		superheroDao.updateSuperhero(superhero);
@@ -84,10 +120,25 @@ public class SuperheroController {
 	
 	@PostMapping("/deleteSuperhero")
 	public String deleteSuperhero(Model model, HttpServletRequest request) {
-		int superheroId = Integer.parseInt(request.getParameter("superheroId"));
+		int superheroId;
+		
+		try {
+		superheroId = Integer.parseInt(request.getParameter("superheroId"));
+		}
+		catch(NumberFormatException e) {
+			model.addAttribute("NumberFormatError", "Please enter a number into the ID field, no letters or symbols are allowed!");
+			return "delete_superheroes";
+		}
+		
+		try {
 		superheroDao.deleteSuperheroById(superheroId);
 		model.addAttribute("successMessage", "The superhero has been successfully deleted");
 		return "delete_superheroes";
+		}
+		catch(EmptyResultDataAccessException e) {
+			model.addAttribute("NoSuchSuperheroError", "Sorry but a superhero with this ID does not exist");
+			return "delete_superheroes";
+		}
 	}
 	
 }

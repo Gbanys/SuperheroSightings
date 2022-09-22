@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymelead.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Details</title>
+</head>
+<body>
+<h2>Sighting details</h2>
+<h3>Superhero details:</h3>
+<p>
+	Superhero's name:
+	<span th:text="${superhero.name}"></span>
+</p>
+<p>
+	Description:
+	<span th:text="${superhero.description}"></span>
+</p>
+<p>
+	Superpower:
+	<span th:text="${superhero.superpower}"></span>
+</p>
+
+
+
+<h3>Location details:</h3>
+<p>
+	Location name:
+	<span th:text="${location.name}"></span>
+</p>
+<p>
+	Location Description:
+	<span th:text="${location.description}"></span>
+</p>
+<p>
+	Location Address:
+	<span th:text="${location.address}"></span>
+</p>
+<p>
+	Latitude:
+	<span th:text="${location.latitude}"></span>
+</p>
+<p>
+	Longitude:
+	<span th:text="${location.longitude}"></span>
+</p>
+
+
+</body>
+</html>

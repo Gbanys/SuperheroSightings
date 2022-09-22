@@ -12,7 +12,7 @@ import com.superherosightings.main.dto.SuperheroLocation;
 public interface SuperheroLocationRepository extends CrudRepository<SuperheroLocation, Integer>{
 
 	
-	List<SuperheroLocation> findAllByOrderBySightingDateAsc();
+	List<SuperheroLocation> findAllByOrderBySightingDateDesc();
 	
 	void deleteAll();
 	

@@ -24,6 +24,8 @@
 </form>
 <br><br>
 
+<p th:text="${NumberFormatError}"></p>
+<p th:text="${NoSuchSuperpowerError}"></p>
 <p th:text="${superpowerById}"></p>
 <p th:each="superpower : ${superpowers}">
        <span th:text="${superpower}"> </span>

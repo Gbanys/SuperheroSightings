@@ -13,8 +13,11 @@
 <h3>Edit a sighting</h3>
 <form action="editSighting" method="POST">
           Edit superhero Id: <input type="text" name="superheroId"/> <br/><br>
+          <p th:text="${NoSuchSuperheroError}"></p>
           Edit location Id: <input type="text" name="locationId"/> <br/>
+          <p th:text="${NoSuchLocationError}"></p>
           Edit date: <input type="text" name="date"/> <br/>
+          <p th:text="${DateTimeFormatError}"></p>
           <br>
           <button type="submit">Save changes</button>
 </form>

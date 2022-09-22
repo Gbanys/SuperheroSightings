@@ -24,6 +24,8 @@
 </form>
 <br><br>
 
+<p th:text=${NoSuchSuperheroError}></p>
+<p th:text="${NumberFormatError}"></p>
 <p th:text="${superheroById}"></p>
 <p th:each="superhero : ${superheroes}">
        <span th:text="${superhero}"> </span>

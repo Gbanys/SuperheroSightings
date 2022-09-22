@@ -49,5 +49,10 @@ public class Superpower {
 		return Objects.equals(name, other.name) && superpowerId == other.superpowerId;
 	}
 
+	@Override
+	public String toString() {
+		return "Superpower [superpowerId=" + superpowerId + ", name=" + name + "]";
+	}
+
 	
 }

@@ -1,10 +1,12 @@
 package com.superherosightings.main.controller;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -49,10 +51,31 @@ public class SuperpowerController {
 	
 	@GetMapping("/viewSuperpowerById")
 	public String displaySuperpowerById(Model model, HttpServletRequest request) {
-		int superpowerId = Integer.parseInt(request.getParameter("superpowerId"));
-		Superpower superpower = superpowerDao.getSuperpowerById(superpowerId);
+		
+		int superpowerId;
+		Superpower superpower;
+		
+		try {
+		superpowerId = Integer.parseInt(request.getParameter("superpowerId"));
+		}
+		catch(NumberFormatException e) {
+			model.addAttribute("NumberFormatError", "Please enter a number into the ID field, no letters or symbols are allowed!");
+			return "view_superpowers";
+		}
+		
+		try {
+		superpower = superpowerDao.getSuperpowerById(superpowerId);
 		model.addAttribute("superpowerById", superpower.toString());
 		return "view_superpowers";
+		}
+		catch(NoSuchElementException e) {
+			model.addAttribute("NoSuchSuperpowerError", "Sorry but a superpower with this ID does not exist");
+			return "view_superpowers";
+		}
+		catch(NullPointerException e) {
+			model.addAttribute("NoSuchSuperpowerError", "Sorry but a superpower with this ID does not exist");
+			return "view_superpowers";
+		}
 	}
 	
 	@GetMapping("/edit_superpowers")
@@ -62,13 +85,33 @@ public class SuperpowerController {
 	
 	@PostMapping("/editSuperpower")
 	public String editSuperpower(Model model, HttpServletRequest request) {
-		int superpowerId = Integer.parseInt(request.getParameter("superpowerId"));
+		
+		int superpowerId;
+		
+		try {
+			superpowerId = Integer.parseInt(request.getParameter("superpowerId"));
+		}
+		catch(NumberFormatException e) {
+			model.addAttribute("NumberFormatError", "Please enter a number into the ID field, no letters or symbols are allowed!");
+			return "edit_superpowers";
+		}
 		String superpowerName = request.getParameter("name");
+		
+		try {
 		Superpower superpower = superpowerDao.getSuperpowerById(superpowerId);
 		superpower.setName(superpowerName);
 		superpowerDao.updateSuperpower(superpower);
 		model.addAttribute("successMessage", "The superpower has been successfully updated");
 		return "edit_superpowers";
+		}
+		catch(NoSuchElementException e) {
+			model.addAttribute("NoSuchSuperpowerError", "Sorry but a superpower with this ID does not exist");
+			return "edit_superpowers";
+		}
+		catch(NullPointerException e) {
+			model.addAttribute("NoSuchSuperpowerError", "Sorry but a superpower with this ID does not exist");
+			return "edit_superpowers";
+		}
 	}
 	
 	@GetMapping("/delete_superpowers")
@@ -78,9 +121,30 @@ public class SuperpowerController {
 	
 	@PostMapping("/deleteSuperpower")
 	public String deleteSuperpower(Model model, HttpServletRequest request) {
-		int superpowerId = Integer.parseInt(request.getParameter("superpowerId"));
+		
+		int superpowerId;
+		
+		try {
+			superpowerId = Integer.parseInt(request.getParameter("superpowerId"));
+		}
+		catch(NumberFormatException e) {
+			model.addAttribute("NumberFormatError", "Please enter a number into the ID field, no letters or symbols are allowed!");
+			return "delete_superpowers";
+		}
+		
+		try {
 		superpowerDao.deleteSuperpowerById(superpowerId);
 		model.addAttribute("successMessage", "The superpower has been successfully deleted");
 		return "delete_superpowers";
+		}
+		catch(NoSuchElementException e) {
+			model.addAttribute("NoSuchSuperpowerError", "Sorry but a superpower with this ID does not exist");
+			return "delete_superpowers";
+		}
+		catch(EmptyResultDataAccessException e) {
+			model.addAttribute("NoSuchSuperpowerError", "Sorry but a superhero with this ID does not exist");
+			return "delete_superheroes";
+		}
+		
 	}
 }

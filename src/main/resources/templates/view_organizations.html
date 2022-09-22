@@ -25,6 +25,8 @@
 <br><br>
 
 <p th:text="${organizationById}"></p>
+<p th:text="${NotFoundError}"></p>
+<p th:text="${NumberFormatError}"></p>
 
 <p th:each="organization : ${organizations}">
        <span th:text="${organization}"> </span>

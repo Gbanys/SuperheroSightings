@@ -2,6 +2,7 @@ package com.superherosightings.main.dto;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Objects;
 
 import javax.persistence.Embeddable;
 import javax.persistence.GeneratedValue;
@@ -25,5 +26,22 @@ public class SuperheroLocationKey implements Serializable{
 	
 	public int getLocationId() {
 		return this.locationId;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(locationId, superheroId);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		SuperheroLocationKey other = (SuperheroLocationKey) obj;
+		return locationId == other.locationId && superheroId == other.superheroId;
 	}
 }

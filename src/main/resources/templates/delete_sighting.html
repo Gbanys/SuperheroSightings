@@ -14,6 +14,7 @@
 <h5>Enter ID of a location that you want to delete</h5>
 <form action="deleteSightingByLocation" method="POST">
           LocationId: <input type="text" name="locationId" required/> <br/>
+          <p th:text="${NoSuchLocationError}"></p>
           <br>
           
           <button type="submit">Delete sighting</button>
@@ -22,6 +23,7 @@
 <h3>Delete sighting by Superhero</h3>
 <form action="deleteSightingBySuperhero" method="POST">
           SuperheroId: <input type="text" name="superheroId" required/> <br/>
+          <p th:text="${NoSuchSuperheroError}"></p>
           <br>
           
           <button type="submit">Delete sighting</button>

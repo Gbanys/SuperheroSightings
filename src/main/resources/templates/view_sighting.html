@@ -22,6 +22,7 @@
           <br>
           <button type="submit">Get sighting by location</button>
 </form>
+<p th:text=${NoSuchLocationError}></p>
 
 <h3>Get sighting by superhero</h3>
 <form action="sightingsBySuperhero" method="GET">
@@ -29,8 +30,9 @@
           <br>
           <button type="submit">Get sighting by superhero</button>
 </form>
+<p th:text=${NoSuchSuperheroError}></p>
 <br><br>
-
+<p th:text="${NumberFormatError}"></p>
 <p th:each="sightingByLocation : ${sightingsByLocation}">
 	<span th:text="${sightingByLocation}"></span>
 	<br>

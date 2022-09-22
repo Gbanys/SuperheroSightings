@@ -13,13 +13,19 @@
 <h3>Create a new sighting</h3>
 <form action="createNewSighting" method="POST">
 		  <p> Please enter the ID of a superhero you found</p><br>
-          SuperheroID: <input type="text" name="superheroId" required/> <br/><br>
+          SuperheroID: <input type="text" name="superheroId" required/> <br/>
+          <p th:text="${NoSuchSuperheroError}"></p>
+          <br>
           <p>Please enter the ID of a location you found</p><br>
           LocationID: <input type="text" name="locationId" required/> <br/>
-          <p>Please enter the date the superhero/supervillain was found in the format dd/MM/YYYY</p><br>
+          <p th:text="${NoSuchLocationError}"></p>
+          <p>Please enter the date the superhero/supervillain was found in the format dd/MM/YYYY</p>
+          <br>
           Date: <input type="text" name="date" required/> <br/>
+          <p th:text="${DateTimeFormatError}"></p>
           <br>
           <button type="submit">Create sighting</button>
+          <p th:text = "${NumberFormatError}"></p>
 </form>
 <br>
 <form action="home" method = "GET">

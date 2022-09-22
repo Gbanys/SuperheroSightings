@@ -1,6 +1,7 @@
 package com.superherosightings.main.dto;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -46,6 +47,24 @@ public class SuperheroLocation {
 		int locationId = id.getLocationId();
 		return "Sighting [SuperheroID=" + superheroId + " LocationID=" + locationId +
 				" sightingDate=" + sightingDate + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id, location, sightingDate, superhero);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		SuperheroLocation other = (SuperheroLocation) obj;
+		return Objects.equals(id, other.id) && Objects.equals(location, other.location)
+				&& Objects.equals(sightingDate, other.sightingDate) && Objects.equals(superhero, other.superhero);
 	}
 	
 }
