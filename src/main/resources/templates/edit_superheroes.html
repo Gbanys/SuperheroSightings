@@ -11,15 +11,14 @@
 <body>
 
 <h3>Edit a superhero</h3>
-<form action="editSuperhero" method="POST">
-		  Superhero Id: <input type="text" name = "superheroId" required/><br/><br>
+<form th:action="@{/edit_superheroes/editSuperhero/{superheroId}(superheroId = ${superheroId})}" method="POST">
           Enter new superhero name: <input type="text" name="name"/> <br/><br>
           Enter new superhero description: <input type="text" name="description"/> <br/>
           <br>
           <button type="submit">Save changes</button>
 </form>
 <br>
-<form action="home" method = "GET">
+<form th:action="@{/view_superheroes}" method = "GET">
 	<button type = "submit">Cancel</button>
 </form>
 <br>

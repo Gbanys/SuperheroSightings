@@ -12,8 +12,7 @@
 
 <h3>Edit a location</h3>
 <p>Enter the ID of a location that you want to change</p>
-<form action="editLocation" method="POST">
-		  Location Id: <input type="text" name = "locationId" required/><br/><br>
+<form th:action="@{/editLocation/{locationId}(locationId = ${locationId})}" method="POST">
           Enter new location name: <input type="text" name="name"/> <br/><br>
           Enter new location description: <input type="text" name="description"/> <br/>
           Enter new location address: <input type="text" name="address"/> <br/>
@@ -21,7 +20,7 @@
           <button type="submit">Save changes</button>
 </form>
 <br>
-<form action="home" method = "GET">
+<form th:action="@{/view_locations}" method = "GET">
 	<button type = "submit">Cancel</button>
 </form>
 <br>

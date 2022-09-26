@@ -11,7 +11,7 @@
 <body>
 
 <h3>Create a new organization</h3>
-<form action="createOrganization" method="POST">
+<form th:action="@{/createOrganization}" method="POST">
 		  Organization name: <input type="text" name="organizationName" required/> <br/><br>
           Organization address: <input type="text" name="organizationAddress" required/> <br/><br>
           Organization description:<input type="text" name="organizationDescription" required/> <br/><br>
@@ -21,7 +21,7 @@
           <button type="submit">Create organization</button>
 </form>
 <br>
-<form action="home" method = "GET">
+<form th:action="@{view_organizations}" method = "GET">
 	<button type = "submit">Cancel</button>
 </form>
 

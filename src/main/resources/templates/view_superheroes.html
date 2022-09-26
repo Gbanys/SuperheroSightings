@@ -11,26 +11,43 @@
 <h1>View Superheroes/Supervillains</h1>
 <body>
 
-<h3>Get all superheroes</h3>
-<form action="viewAllSuperheroes" method="GET">
-          <button type="submit">Get all superheroes</button>
-</form>
-
-<h3>Get superhero by Id</h3>
-<form action="viewSuperheroById" method="GET">
-          SuperheroId: <input type="text" name="superheroId" required/> <br/>
-          <br>
-          <button type="submit">Get superhero by Id</button>
-</form>
+<h3>Superhero List</h3>
 <br><br>
 
 <p th:text=${NoSuchSuperheroError}></p>
 <p th:text="${NumberFormatError}"></p>
-<p th:text="${superheroById}"></p>
-<p th:each="superhero : ${superheroes}">
-       <span th:text="${superhero}"> </span>
-       <br>
-</p>
+
+<form action="/create_superhero">
+	<input type="hidden">
+	<button class = "btn btn-primary" type="submit">Add a new superhero</button>
+</form>
+<table class="table" style = "margin-left:auto; margin-right:auto; width:75%">
+  <thead>
+    <tr>
+      <th scope="col">Superhero Name</th>
+      <th scope="col">Superhero Description</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody th:each="superhero : ${superheroes}">
+    <tr>
+      <td th:text="${superhero.name}"></td>
+      <td th:text="${superhero.description}"></td>
+      <td>
+      <form th:action="@{/edit_superheroes/{superheroId}(superheroId = ${superhero.superheroId})}" method = "GET">
+			<input type="hidden" th:name = "${superhero.superheroId}">
+			<button type="submit">Edit</button>
+		</form>
+	  </td>
+	  <td>
+      <form th:action="@{/deleteSuperhero/{superheroId}(superheroId = ${superhero.superheroId})}" method = "POST">
+			<input type="hidden" th:name = "${superhero.superheroId}">
+			<button type="submit">Delete</button>
+		</form>
+	  </td>
+    </tr>
+  </tbody>
+</table>
 
 </body>
 </html>

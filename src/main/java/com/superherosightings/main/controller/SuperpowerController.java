@@ -10,6 +10,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.superherosightings.main.dao.SuperpowerDao;
@@ -34,117 +35,44 @@ public class SuperpowerController {
 		superpower.setName(superpowerName);
 		superpowerDao.createSuperpower(superpower);
 		model.addAttribute("successMessage", "The superpower has been successfully created");
-		return "create_superpower";
+		return viewSuperpowers(model);
 	}
 	
 	@GetMapping("/view_superpowers")
-	public String viewSuperpowers() {
-		return "view_superpowers";
-	}
-	
-	@GetMapping("/viewAllSuperpowers")
-	public String displaySuperpowers(Model model) {
+	public String viewSuperpowers(Model model) {
 		List<Superpower> superpowers = superpowerDao.getAllSuperpowers();
 		model.addAttribute("superpowers", superpowers);
 		return "view_superpowers";
 	}
 	
-	@GetMapping("/viewSuperpowerById")
-	public String displaySuperpowerById(Model model, HttpServletRequest request) {
-		
-		int superpowerId;
-		Superpower superpower;
-		
-		try {
-		superpowerId = Integer.parseInt(request.getParameter("superpowerId"));
-		}
-		catch(NumberFormatException e) {
-			model.addAttribute("NumberFormatError", "Please enter a number into the ID field, no letters or symbols are allowed!");
-			return "view_superpowers";
-		}
-		
-		try {
-		superpower = superpowerDao.getSuperpowerById(superpowerId);
-		model.addAttribute("superpowerById", superpower.toString());
-		return "view_superpowers";
-		}
-		catch(NoSuchElementException e) {
-			model.addAttribute("NoSuchSuperpowerError", "Sorry but a superpower with this ID does not exist");
-			return "view_superpowers";
-		}
-		catch(NullPointerException e) {
-			model.addAttribute("NoSuchSuperpowerError", "Sorry but a superpower with this ID does not exist");
-			return "view_superpowers";
-		}
-	}
-	
-	@GetMapping("/edit_superpowers")
-	public String viewEditSuperpower() {
+	@GetMapping("/edit_superpowers/{superpowerId}")
+	public String viewEditSuperpower(@PathVariable int superpowerId, Model model) {
+		model.addAttribute("superheroId", ""+superpowerId);
 		return "edit_superpowers";
 	}
 	
-	@PostMapping("/editSuperpower")
-	public String editSuperpower(Model model, HttpServletRequest request) {
+	@PostMapping("/edit_superpower/editSuperpower/{superpowerId}")
+	public String editSuperpower(@PathVariable int superpowerId, Model model, HttpServletRequest request) {
 		
-		int superpowerId;
-		
-		try {
-			superpowerId = Integer.parseInt(request.getParameter("superpowerId"));
-		}
-		catch(NumberFormatException e) {
-			model.addAttribute("NumberFormatError", "Please enter a number into the ID field, no letters or symbols are allowed!");
-			return "edit_superpowers";
-		}
 		String superpowerName = request.getParameter("name");
-		
-		try {
 		Superpower superpower = superpowerDao.getSuperpowerById(superpowerId);
 		superpower.setName(superpowerName);
 		superpowerDao.updateSuperpower(superpower);
 		model.addAttribute("successMessage", "The superpower has been successfully updated");
-		return "edit_superpowers";
-		}
-		catch(NoSuchElementException e) {
-			model.addAttribute("NoSuchSuperpowerError", "Sorry but a superpower with this ID does not exist");
-			return "edit_superpowers";
-		}
-		catch(NullPointerException e) {
-			model.addAttribute("NoSuchSuperpowerError", "Sorry but a superpower with this ID does not exist");
-			return "edit_superpowers";
-		}
+		return viewSuperpowers(model);
 	}
 	
-	@GetMapping("/delete_superpowers")
+	@PostMapping("/delete_superpowers/{superpowerId}")
 	public String viewDeleteSuperpower() {
 		return "delete_superpowers";
 	}
 	
-	@PostMapping("/deleteSuperpower")
-	public String deleteSuperpower(Model model, HttpServletRequest request) {
+	@PostMapping("/deleteSuperpower/{superpowerId}")
+	public String deleteSuperpower(@PathVariable int superpowerId, Model model, HttpServletRequest request) {
 		
-		int superpowerId;
-		
-		try {
-			superpowerId = Integer.parseInt(request.getParameter("superpowerId"));
-		}
-		catch(NumberFormatException e) {
-			model.addAttribute("NumberFormatError", "Please enter a number into the ID field, no letters or symbols are allowed!");
-			return "delete_superpowers";
-		}
-		
-		try {
 		superpowerDao.deleteSuperpowerById(superpowerId);
 		model.addAttribute("successMessage", "The superpower has been successfully deleted");
-		return "delete_superpowers";
-		}
-		catch(NoSuchElementException e) {
-			model.addAttribute("NoSuchSuperpowerError", "Sorry but a superpower with this ID does not exist");
-			return "delete_superpowers";
-		}
-		catch(EmptyResultDataAccessException e) {
-			model.addAttribute("NoSuchSuperpowerError", "Sorry but a superhero with this ID does not exist");
-			return "delete_superheroes";
-		}
+		return viewSuperpowers(model);
 		
 	}
 }

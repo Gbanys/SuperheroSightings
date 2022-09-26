@@ -10,6 +10,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.superherosightings.main.dao.LocationDao;
@@ -39,110 +40,46 @@ public class LocationController {
 		location.setDescription(locationDescription);
 		locationDao.createLocation(location);
 		model.addAttribute("successMessage", "The location has been successfully created");
-		return "create_location";
+		return viewLocations(model);
 	}
 	
 	@GetMapping("/view_locations")
-	public String viewLocations() {
-		return "view_locations";
-	}
-	
-	@GetMapping("/viewAllLocations")
-	public String displayAllLocations(Model model) {
+	public String viewLocations(Model model) {
 		List<Location> locations = locationDao.getAllLocations();
-		model.addAttribute("locations", locations);
+		model.addAttribute("locations",locations);
 		return "view_locations";
 	}
 	
-	@GetMapping("/viewLocationById")
-	public String displayLocationById(Model model, HttpServletRequest request) {
-		int locationId;
-		
-		try {
-		locationId = Integer.parseInt(request.getParameter("locationId"));
-		}
-		catch(NumberFormatException e) {
-			model.addAttribute("NumberFormatError", "Please enter a number into the ID field, no letters or symbols are allowed!");
-			return "view_locations";
-		}
-		
-		try {
-		Location location = locationDao.getLocationById(locationId);
-		model.addAttribute("locationById", location.toString());
-		return "view_locations";
-		}
-		catch(NoSuchElementException e) {
-			model.addAttribute("NotFoundError", "Sorry but no location exists with this ID number."
-					+ "Please click on view all locations to see all ID numbers and their corresponding locations");
-		return "view_locations";
-		}
-	}
 	
-	@GetMapping("/edit_locations")
-	public String viewEditLocation() {
+	@GetMapping("/edit_locations/{locationId}")
+	public String viewEditLocation(@PathVariable int locationId, Model model) {
+		model.addAttribute("locationId", locationId);
 		return "edit_locations";
 	}
 	
-	@PostMapping("/editLocation")
-	public String editLocation(Model model, HttpServletRequest request) {
+	@PostMapping("/editLocation/{locationId}")
+	public String editLocation(@PathVariable int locationId, Model model, HttpServletRequest request) {
 		
-		int locationId;
 		Location location;
-		
-		try {
-			locationId = Integer.parseInt(request.getParameter("locationId"));
-		}
-		catch(NumberFormatException e) {
-			model.addAttribute("NumberFormatError", "Please enter a number into the ID field, no letters or symbols are allowed!");
-			return "edit_locations";
-		}
+
 		String locationName = request.getParameter("name");
 		String locationAddress = request.getParameter("address");
 		String locationDesc = request.getParameter("description");
 		
-		try {
-			location = locationDao.getLocationById(locationId);
-			location.setName(locationName);
-			location.setAddress(locationAddress);
-			location.setDescription(locationDesc);
-			model.addAttribute("locationById", location.toString());
-			model.addAttribute("successMessage", "The location has been successfully updated");
-			return "edit_locations";
-		}
-		catch(NoSuchElementException e) {
-			model.addAttribute("NotFoundError", "Sorry but no location exists with this ID number."
-						+ "Please click on view all locations to see all ID numbers and their corresponding locations");
-			return "edit_locations";
-			}
+		location = locationDao.getLocationById(locationId);
+		location.setName(locationName);
+		location.setAddress(locationAddress);
+		location.setDescription(locationDesc);
+		model.addAttribute("locationById", location.toString());
+		model.addAttribute("successMessage", "The location has been successfully updated");
+		return viewLocations(model);
 		
 	}
 	
-	@GetMapping("/delete_locations")
-	public String viewDeleteLocation() {
-		return "delete_locations";
-	}
-	
-	@PostMapping("/deleteLocation")
-	public String deleteLocation(Model model, HttpServletRequest request) {
-		
-		int locationId;
-		
-		try {
-			locationId = Integer.parseInt(request.getParameter("locationId"));
-		}
-		catch(NumberFormatException e) {
-			model.addAttribute("NumberFormatError", "Please enter a number into the ID field, no letters or symbols are allowed!");
-			return "delete_locations";
-		}
-		
-		try {
+	@PostMapping("/deleteLocation/{locationId}")
+	public String deleteLocation(@PathVariable int locationId, Model model, HttpServletRequest request) {
 		locationDao.deleteLocationById(locationId);
-		}
-		catch(EmptyResultDataAccessException e) {
-			model.addAttribute("NotFoundError", "Sorry but a location with this ID does not exist");
-			return "delete_locations";
-		}
 		model.addAttribute("successMessage", "The location has been successfully deleted");
-		return "delete_locations";
+		return viewLocations(model);
 	}
 }

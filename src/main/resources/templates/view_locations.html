@@ -11,26 +11,40 @@
 <h1>View locations</h1>
 <body>
 
-<h3>Get all locations</h3>
-<form action="viewAllLocations" method="GET">
-          <button type="submit">Get all locations</button>
-</form>
-
-<h3>Get location by Id</h3>
-<form action="viewLocationById" method="GET">
-          locationId: <input type="text" name="locationId" required/> <br/>
-          <br>
-          <button type="submit">Get location by Id</button>
+<h3>Location manager</h3>
+<form action="create_location" method="GET">
+          <button class="btn btn-primary" type="submit">Create Location</button>
 </form>
 <br><br>
 
-<p th:text="${locationById}"></p>
-<p th:text="${NumberFormatError}"></p>
-<p th:text="${NotFoundError}"></p>
-<p th:each="location : ${locations}">
-       <span th:text="${location}"> </span>
-       <br>
-</p>
+<table class="table" style = "margin-left:auto; margin-right:auto; width:75%">
+  <thead>
+    <tr>
+      <th scope="col">Location Name</th>
+      <th scope="col">Address</th>
+      <th scope="col">Description</th>
+    </tr>
+  </thead>
+  <tbody th:each="location : ${locations}">
+    <tr>
+      <td th:text="${location.name}"></td>
+      <td th:text="${location.description}"></td>
+      <td th:text="${location.address}"></td>
+      <td>
+      <form th:action="@{/edit_locations/{locationId}(locationId = ${location.locationId})}" method = "GET">
+			<input type="hidden" th:name = "${location.locationId}">
+			<button type="submit">Edit</button>
+		</form>
+	  </td>
+	  <td>
+      <form th:action="@{/deleteLocation/{locationId}(locationId = ${location.locationId})}" method = "POST">
+			<input type="hidden" th:name = "${location.locationId}">
+			<button type="submit">Delete</button>
+		</form>
+	  </td>
+    </tr>
+  </tbody>
+</table>
 
 </body>
 </html>

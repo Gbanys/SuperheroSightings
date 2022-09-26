@@ -8,30 +8,46 @@
 
 <title>View organizations</title>
 </head>
-<h1>View organizations</h1>
+<h1>Superhero sightings manager</h1>
 <body>
 
-<h3>Get all organizations</h3>
-<form action="viewAllOrganizations" method="GET">
-          <button type="submit">Get all organizations</button>
-</form>
-
-<h3>Get organization by Id</h3>
-<form action="viewOrganizationById" method="GET">
-          organizationId: <input type="text" name="organizationId" required/> <br/>
-          <br>
-          <button type="submit">Get organization by Id</button>
-</form>
 <br><br>
 
-<p th:text="${organizationById}"></p>
-<p th:text="${NotFoundError}"></p>
-<p th:text="${NumberFormatError}"></p>
-
-<p th:each="organization : ${organizations}">
-       <span th:text="${organization}"> </span>
-       <br>
-</p>
-
+<h3>Organization manager</h3>
+<form th:action="@{/create_organization}">
+	<button class="btn btn-primary" type="submit">Add an organization</button>
+</form>
+<table class="table" style = "margin-left:auto; margin-right:auto; width:75%">
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Description</th>
+      <th score="col">Email Address</th>
+      <th score="col">Phone Number</th>
+      <th scope="col">Address</th>
+    </tr>
+  </thead>
+  <tbody th:each="organization : ${organizations}">
+    <tr>
+      <td th:text="${organization.name}"></td>
+      <td th:text="${organization.description}"></td>
+      <td th:text="${organization.emailAddress}"></td>
+      <td th:text="${organization.phoneNumber}"></td>
+      <td th:text="${organization.address}"></td>
+      <td>
+      <form th:action="@{/edit_organizations/{organizationId}(organizationId = ${organization.organizationId})}" method = "GET">
+			<input type="hidden" th:name = "${organization.organizationId}">
+			<button type="submit">Edit</button>
+		</form>
+	  </td>
+	  <td>
+      <form th:action="@{/deleteOrganization/{organizationId}(organizationId = ${organization.organizationId})}" method = "POST">
+			<input type="hidden" th:name = "${organization.organizationId}">
+			<button type="submit">Delete</button>
+		</form>
+	  </td>
+    </tr>
+  </tbody>
+</table>
 </body>
 </html>

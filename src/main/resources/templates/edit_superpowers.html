@@ -11,14 +11,13 @@
 <body>
 
 <h3>Edit a superpower</h3>
-<form action="editSuperpower" method="POST">
-		  Superpower Id: <input type="text" name = "superpowerId" required/><br/><br>
+<form th:action="@{/edit_superpower/editSuperpower/{superpowerId}(superpowerId = ${superpowerId})}" method="POST">
           Enter new superpower name: <input type="text" name="name"/> <br/><br>
           <br>
           <button type="submit">Save changes</button>
 </form>
 <br>
-<form action="home" method = "GET">
+<form th:action="@{/view_superpowers}" method = "GET">
 	<button type = "submit">Cancel</button>
 </form>
 <br>

@@ -11,9 +11,8 @@
 <body>
 
 <h3>Edit an organization</h3>
-<p>Enter the ID of an organization that you want to change</p>
-<form action="editOrganization" method="POST">
-		  Organization Id: <input type="text" name = "organizationId" required/><br/><br>
+<p>Enter new information for this organization</p>
+<form th:action="@{/editOrganization/{organizationId}(organizationId = ${organizationId})}" method="POST">
           Enter new organization name: <input type="text" name="name"/> <br/><br>
           Enter new organization description: <input type="text" name="description"/> <br/>
           Enter new organization address: <input type="text" name="address"/> <br/>
@@ -23,7 +22,7 @@
           <button type="submit">Save changes</button>
 </form>
 <br>
-<form action="home" method = "GET">
+<form th:action="@{view_organizations}" method = "GET">
 	<button type = "submit">Cancel</button>
 </form>
 <br>
