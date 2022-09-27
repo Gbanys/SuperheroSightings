@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.superherosightings.main.dto.Location;
 import com.superherosightings.main.dto.Superhero;
 import com.superherosightings.main.dto.SuperheroLocation;
+import com.superherosightings.main.dto.SuperheroLocationKey;
 
 @Service
 public interface LocationDao {
@@ -39,6 +40,8 @@ public interface LocationDao {
 	SuperheroLocation getSightingById(int id);
 	
 	void deleteAll();
+	
+	void deleteSightingById(SuperheroLocationKey id);
 	
 	List<Location> getLocationsBySuperhero(Superhero superhero);
 

@@ -15,6 +15,7 @@ import com.superherosightings.main.dto.Location;
 import com.superherosightings.main.dto.Organization;
 import com.superherosightings.main.dto.Superhero;
 import com.superherosightings.main.dto.SuperheroLocation;
+import com.superherosightings.main.dto.SuperheroLocationKey;
 
 @Service
 public class LocationDaoImpl implements LocationDao{
@@ -101,6 +102,11 @@ public class LocationDaoImpl implements LocationDao{
 	@Override
 	public void deleteAll() {
 		superheroLocationRepository.deleteAll();
+	}
+	
+	@Override
+	public void deleteSightingById(SuperheroLocationKey id) {
+		superheroLocationRepository.deleteById(id);
 	}
 	
 	@Override

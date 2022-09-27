@@ -11,41 +11,58 @@
 <h1>View sightings</h1>
 <body>
 
-<h3>Get all sightings</h3>
-<form action="getAllSightings" method="GET">
-        <button type="submit">Get all locations</button>
-</form>
+<nav class="navbar navbar-default" style="background-color: #000066; color: white;">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a style="color:white" class="navbar-brand" href="#">Superhero Sightings</a>
+    </div>
+    <ul class="nav navbar-nav" style="background-color: #000066; color: white;">
+      <li style="background-color: #000066; color: white;" class="active"><a style="background-color: #000066; color: white;" href="/home">Home</a></li>
+      <li><a style="color:white" href="/view_superheroes">Supers</a></li>
+      <li><a style="color:white" href="/view_superpowers">Superpowers</a></li>
+      <li><a style="color:white" href="/view_locations">Locations</a></li>
+      <li><a style="color:white" href="/view_organizations">Organizations</a></li>
+      <li><a style="color:white" href="/view_sighting">Sightings</a></li>
+    </ul>
+  </div>
+</nav>
+<div style="background-color: #00ff99; color:#00663d; text-align: center; font-size:20px" th:text="${successMessage}">
+</div>
 
-<h3>Get sighting by location</h3>
-<form action="sightingsByLocation" method="GET">
-          locationId: <input type="text" name="locationId" required/> <br/>
-          <br>
-          <button type="submit">Get sighting by location</button>
+<h3>Sighting manager</h3>
+<form th:action="@{create_sighting}" method="GET">
+          <button class="btn btn-primary" type="submit">Record a sighting</button>
 </form>
-<p th:text=${NoSuchLocationError}></p>
-
-<h3>Get sighting by superhero</h3>
-<form action="sightingsBySuperhero" method="GET">
-          superheroId: <input type="text" name="superheroId" required/> <br/>
-          <br>
-          <button type="submit">Get sighting by superhero</button>
-</form>
-<p th:text=${NoSuchSuperheroError}></p>
 <br><br>
-<p th:text="${NumberFormatError}"></p>
-<p th:each="sightingByLocation : ${sightingsByLocation}">
-	<span th:text="${sightingByLocation}"></span>
-	<br>
-</p>
-<p th:each="sightingBySuperhero : ${sightingsBySuperhero}">
-	<span th:text="${sightingBySuperhero}"></span>
-	<br>
-</p>
 
-<p th:each="sighting : ${sightings}">
-       <span th:text="${sighting}"> </span>
-       <br>
-</p>
+<table class="table" style = "margin-left:auto; margin-right:auto; width:75%">
+  <thead>
+    <tr>
+      <th scope="col">Location</th>
+      <th scope="col">Superhero</th>
+      <th scope="col">Sighting date</th>
+    </tr>
+  </thead>
+  <tbody th:each="sighting : ${sightings}">
+    <tr>
+      <td th:text="${sighting.location.name}"></td>
+      <td th:text="${sighting.superhero.name}"></td>
+      <td th:text="${sighting.sightingDate}"></td>
+      <td>
+      <form th:action="@{/edit_sighting}" method = "GET">
+			<input type="hidden" th:name = "${sighting.id}">
+			<button type="submit">Edit</button>
+		</form>
+	  </td>
+	  <td>
+      <form th:action="@{/delete_sighting}" method = "GET">
+			<input type="hidden" th:name = "${sighting.id}">
+			<button type="submit">Delete</button>
+		</form>
+	  </td>
+    </tr>
+  </tbody>
+</table>
 
 </body>
 </html>

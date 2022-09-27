@@ -2,30 +2,107 @@
 <html xmlns:th="http://www.thymelead.org">
 <head>
 <meta charset="ISO-8859-1">
-<title>Edit sighting</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script>
+
+function addSuperhero(currentID, currentName){
+	document.getElementById("superheroID").value = currentID
+	document.getElementById("superheroName").value = currentName;
+	document.getElementById("inputSuperheroID").value = currentID;
+}
+function addLocation(currentID, currentName){
+	document.getElementById("locationID").value = currentID
+	document.getElementById("locationName").value = currentName;
+	document.getElementById("inputLocationID").value = currentID;
+}
+</script>
+<title>Create new sighting</title>
 </head>
-<h1>Edit a sighting</h1>
+<div style="background-color: pink; color:#800000; text-align: center; font-size:20px" th:text="${DateTimeFormatError}">
+</div>
+<div style="background-color: pink; color:#800000; text-align: center; font-size:20px" th:text="${EmptyStringError}">
+</div>
+<h1>Create new sighting</h1>
 <body>
 
-<h3>Edit a sighting</h3>
-<form action="editSighting" method="POST">
-          Edit superhero Id: <input type="text" name="superheroId"/> <br/><br>
-          <p th:text="${NoSuchSuperheroError}"></p>
-          Edit location Id: <input type="text" name="locationId"/> <br/>
-          <p th:text="${NoSuchLocationError}"></p>
-          Edit date: <input type="text" name="date"/> <br/>
-          <p th:text="${DateTimeFormatError}"></p>
-          <br>
-          <button type="submit">Save changes</button>
+<h3>Create a new sighting</h3>
+<br><br><br>
+<div class="container" style = "margin-left:auto; margin-right:auto;">
+	<div class="row">
+	<div class="col-sm-6">
+		<label for="superheroID">Superhero ID</label>
+		<input type="text" id="superheroID" name="superheroID" th:value="${sighting.superhero.superheroId}" disabled>
+		<br>
+		<label for="superheroName">Superhero Name</label>
+		<input type="text" id="superheroName" name="superheroName" th:value="${sighting.superhero.name}" disabled>
+		<br>
+		<table class="table" id="superheroTable" style = "margin-left:auto; margin-right:auto; width:75%">
+  			<thead>
+    		<tr>
+      			<th scope="col">Superhero Name</th>
+      			<th scope="col">Superhero Description</th>
+      			<th scope="col"></th>
+    		</tr>
+  			</thead>
+  			<tbody th:id="superheroBody" th:each="superhero : ${superheroes}">
+    		<tr id="superheroRow" th:id="'superhero' + ${superhero.superheroId}">
+      			<td th:text="${superhero.name}"></td>
+      			<td th:text="${superhero.description}"></td>
+      			<td>
+					<button class="btn btn-primary" th:attr="onclick=|addSuperhero('${superhero.superheroId}', '${superhero.name}')|" >Add</button>
+	  			</td>
+    		</tr>
+  		</tbody>
+		</table>
+	</div>
+	<div class="col-sm-6">
+			<label for="locationID">Location ID</label>
+			<input type="text" id="locationID" name="locationID" th:value="${sighting.location.locationId}" disabled>
+			<br>
+			<label for="locationName">Location Name</label>
+			<input type="text" id="locationName" name="locationName" th:value="${sighting.location.name}" disabled>
+			<br>
+			<table class="table" id="locationTable" style = "margin-left:auto; margin-right:auto; width:75%">
+  				<thead>
+    				<tr>
+      					<th scope="col">Location Name</th>
+      					<th scope="col">Address</th>
+      					<th scope="col">Description</th>
+    				</tr>
+  				</thead>
+  				<tbody th:id="locationBody" th:each="location : ${locations}">
+    				<tr id="locationRow" th:id="'location' + ${location.locationId}">
+      					<td th:text="${location.name}"></td>
+      					<td th:text="${location.description}"></td>
+      					<td th:text="${location.address}"></td>
+      					<td>
+							<button class="btn btn-primary" th:attr="onclick=|addLocation('${location.locationId}', '${location.name}')|" >Add</button>
+	  				</td>
+    			</tr>
+  			</tbody>
+		</table>
+	</div>
+	</div>
+</div>
+<form action="createNewSighting" method="POST">
+	<input th:value="${sighting.superhero.superheroId}" id="inputSuperheroID" type="hidden" name = "superheroID">
+	<input th:value="${sighting.location.locationId}" id="inputLocationID" type="hidden" name = "locationID">
+	<p>Please enter the date the superhero/supervillain was found in the format dd/MM/YYYY</p>
+	<br>
+	Date: <input type="text" name="date" th:value="${sighting.sightingDate}" required/> <br/>
+	<p th:text="${DateTimeFormatError}"></p>
+	<br>
+	<button class="btn btn-success" type="submit">Edit sighting</button>
+	<p th:text = "${NumberFormatError}"></p>
+	</form>
+	<br>
+<form th:action="@{view_sighting}" method = "GET">
+		<button class="btn btn-danger" type = "submit">Cancel</button>
 </form>
-<br>
-<form action="home" method = "GET">
-	<button type = "submit">Cancel</button>
-</form>
-<br>
+
+<br><br>
 <p th:text="${successMessage}"></p>
 
 </body>

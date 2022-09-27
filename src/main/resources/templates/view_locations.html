@@ -11,6 +11,24 @@
 <h1>View locations</h1>
 <body>
 
+<nav class="navbar navbar-default" style="background-color: #000066; color: white;">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a style="color:white" class="navbar-brand" href="#">Superhero Sightings</a>
+    </div>
+    <ul class="nav navbar-nav" style="background-color: #000066; color: white;">
+      <li style="background-color: #000066; color: white;" class="active"><a style="background-color: #000066; color: white;" href="/home">Home</a></li>
+      <li><a style="color:white" href="/view_superheroes">Supers</a></li>
+      <li><a style="color:white" href="/view_superpowers">Superpowers</a></li>
+      <li><a style="color:white" href="/view_locations">Locations</a></li>
+      <li><a style="color:white" href="/view_organizations">Organizations</a></li>
+      <li><a style="color:white" href="/view_sighting">Sightings</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div style="background-color: #00ff99; color:#00663d; text-align: center; font-size:20px" th:text="${successMessage}">
+</div>
 <h3>Location manager</h3>
 <form action="create_location" method="GET">
           <button class="btn btn-primary" type="submit">Create Location</button>

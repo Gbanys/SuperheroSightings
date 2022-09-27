@@ -8,6 +8,7 @@ import org.springframework.data.repository.CrudRepository;
 import com.superherosightings.main.dto.Location;
 import com.superherosightings.main.dto.Superhero;
 import com.superherosightings.main.dto.SuperheroLocation;
+import com.superherosightings.main.dto.SuperheroLocationKey;
 
 public interface SuperheroLocationRepository extends CrudRepository<SuperheroLocation, Integer>{
 
@@ -18,6 +19,7 @@ public interface SuperheroLocationRepository extends CrudRepository<SuperheroLoc
 	
 	void deleteBySuperhero(Superhero superhero);
 	void deleteByLocation(Location location);
+	void deleteById(SuperheroLocationKey id);
 	
 	List<SuperheroLocation> findBySuperhero(Superhero superhero);
 	

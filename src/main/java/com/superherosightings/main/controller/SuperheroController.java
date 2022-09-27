@@ -69,6 +69,7 @@ public class SuperheroController {
 	@PostMapping("/deleteSuperhero/{superheroId}")
 	public String deleteSuperhero(@PathVariable int superheroId, Model model, HttpServletRequest request) {
 		superheroDao.deleteSuperheroById(superheroId);
+		model.addAttribute("successMessage", "The superhero/supervillain has been successfully deleted");
 		return viewSuperheroes(model);
 	}
 	

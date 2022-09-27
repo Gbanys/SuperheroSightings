@@ -90,6 +90,7 @@ public class OrganizationController {
 	@PostMapping("/deleteOrganization/{organizationId}")
 	public String deleteOrganization(@PathVariable int organizationId, Model model, HttpServletRequest request) {
 		organizationDao.deleteOrganizationById(organizationId);
+		model.addAttribute("successMessage", "The organization has been successfully deleted");
 		return viewOrganizations(model);
 	}
 		
